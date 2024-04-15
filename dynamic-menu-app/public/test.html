@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Component Demo</title>
+  <!-- 引入 Vue 3 的运行时 -->
+  <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"></script>
+</head>
+<body>
+  <!-- 这里直接定义 Vue 组件 -->
+  <div id="app">
+    <hello-world></hello-world>
+  </div>
+
+  <!-- 定义一个简单的 Vue 组件 -->
+  <script>
+    const HelloWorld = {
+      template: `
+        <div>
+          <h1>Hello, World!</h1>
+          <p>This is a Vue component.</p>
+        </div>
+      `
+    };
+
+    const app = Vue.createApp({});
+    app.component('hello-world', HelloWorld);
+    app.mount('#app');
+  </script>
+</body>
+</html>
