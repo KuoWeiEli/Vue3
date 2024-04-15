@@ -1,11 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import DashboardView from '../views/DashboardView.vue';
+import LoginView from '../views/LoginView.vue';
 import ManageReportsView from '../views/ManageReportsView.vue';
 import ReportsView from '../views/ReportsView.vue';
 
 const data = {};
 
 const routes = [
+    {
+        label: 'Login',
+        path: '/login',
+        component: LoginView,
+        meta: { requiresAuth: false }
+    },
     {
         label: 'Dashboard',
         path: '/dashboard',
@@ -52,7 +59,7 @@ router.beforeEach((to, from, next) => {
 
 function isLoggedIn() {
     // 用戶是否已登入
-    return data.user != null;
+    return data.user && data.user.name;
 }
 
 function hasPermission(requiredPermission) {
@@ -69,6 +76,9 @@ export function generateMenu(user) {
     data.user = user;
 
     return routes.filter(route => {
+        if (route.label === 'Login')
+            return false;
+
         const { requiresPermission } = route.meta;
 
         if (requiresPermission) {
